@@ -9,6 +9,8 @@ import com.error404.dominoapp.data.local.entity.HandEntity
 import com.error404.dominoapp.data.local.entity.HandScoreEntity
 import com.error404.dominoapp.data.local.entity.HandWithScores
 import com.error404.dominoapp.data.local.entity.MatchEntity
+import com.error404.dominoapp.data.local.entity.MatchParticipantTotal
+import com.error404.dominoapp.data.local.entity.MatchWithHandCount
 import com.error404.dominoapp.data.local.entity.MatchWithParticipants
 import com.error404.dominoapp.data.local.entity.ParticipantEntity
 import com.error404.dominoapp.data.local.entity.ParticipantTotal
@@ -98,4 +100,27 @@ interface MatchDao {
     @Transaction
     @Query("SELECT * FROM matches WHERE finishedAt IS NOT NULL ORDER BY finishedAt DESC")
     fun observeHistory(): Flow<List<MatchWithParticipants>>
+
+    /** Every match: the one in progress first, then the most recently finished. */
+    @Query(
+        """
+        SELECT m.*, (SELECT COUNT(*) FROM hands h WHERE h.matchId = m.id) AS handCount
+        FROM matches m
+        ORDER BY (m.finishedAt IS NULL) DESC, COALESCE(m.finishedAt, m.startedAt) DESC
+        """,
+    )
+    fun observeAllMatches(): Flow<List<MatchWithHandCount>>
+
+    /** Every participant's total in every match, in one query (instead of one query per match). */
+    @Query(
+        """
+        SELECT p.matchId AS matchId, p.id AS participantId, p.name AS name, p.position AS position,
+               COALESCE(SUM(s.points), 0) AS total
+        FROM participants p
+        LEFT JOIN hand_scores s ON s.participantId = p.id
+        GROUP BY p.id
+        ORDER BY p.matchId, p.position
+        """,
+    )
+    fun observeAllTotals(): Flow<List<MatchParticipantTotal>>
 }

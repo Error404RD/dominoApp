@@ -13,6 +13,7 @@ import com.error404.dominoapp.data.local.entity.ParticipantTotal
 import com.error404.dominoapp.domain.DominoRules
 import com.error404.dominoapp.domain.Score
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 
 /**
  * The single entry point the UI uses to read and change match data.
@@ -35,6 +36,13 @@ class MatchRepository(
     fun observeHands(matchId: Long): Flow<List<HandWithScores>> = dao.observeHands(matchId)
     fun observeMatchInProgress(): Flow<MatchWithParticipants?> = dao.observeMatchInProgress()
     fun observeHistory(): Flow<List<MatchWithParticipants>> = dao.observeHistory()
+
+    /** Every match with its totals, for the history screen. Updates whenever any match changes. */
+    fun observeMatchSummaries(): Flow<List<MatchSummary>> =
+        combine(dao.observeAllMatches(), dao.observeAllTotals()) { matches, totals ->
+            val totalsByMatch = totals.groupBy { it.matchId }
+            matches.map { MatchSummary(it.match, it.handCount, totalsByMatch[it.match.id].orEmpty()) }
+        }
 
     // ---------- Commands ----------
 

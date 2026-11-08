@@ -91,6 +91,29 @@ class MatchRepositoryTest {
     }
 
     @Test
+    fun matchSummaries_listInProgressFirst_withTotalsHandCountsAndStatus() = runTest {
+        val won = repo.startMatch(Mode.PAIRS, listOf("A", "B"), targetScore = 100)
+        val (a, b) = participantIds(won)
+        repo.saveHand(won, mapOf(b to 30))
+        repo.saveHand(won, mapOf(a to 100))
+        val abandoned = repo.startMatch(Mode.PAIRS, listOf("C", "D"), targetScore = 100)
+        val current = repo.startMatch(Mode.INDIVIDUAL, listOf("E", "F", "G"), targetScore = 200)
+
+        val summaries = repo.observeMatchSummaries().first()
+
+        // In progress first, then most recently finished (the abandoned one finished after the won one).
+        assertEquals(listOf(current, abandoned, won), summaries.map { it.match.id })
+        assertTrue(summaries[0].isInProgress)
+        assertTrue(summaries[1].isAbandoned)
+
+        val wonSummary = summaries[2]
+        assertEquals(2, wonSummary.handCount)
+        assertEquals(listOf("A" to 100, "B" to 30), wonSummary.totals.map { it.name to it.total })
+        assertEquals("A", wonSummary.winner?.name)
+        assertEquals(listOf(0, 0, 0), summaries[0].totals.map { it.total })
+    }
+
+    @Test
     fun missingParticipantsGetZero() = runTest {
         val matchId = repo.startMatch(Mode.INDIVIDUAL, listOf("A", "B", "C"), targetScore = 200)
         val (a, _, _) = participantIds(matchId)

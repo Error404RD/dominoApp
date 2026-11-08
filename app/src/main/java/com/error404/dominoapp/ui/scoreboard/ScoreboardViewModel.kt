@@ -35,6 +35,12 @@ data class ScoreboardUiState(
 ) {
     val canAddHands: Boolean get() = !isLoading && !isFinished
 
+    /** Closed without a winner because a new match was started: read-only. */
+    val isAbandoned: Boolean get() = isFinished && winner == null
+
+    /** Won matches can still be corrected (that may reopen them); abandoned ones cannot. */
+    val canEditHands: Boolean get() = !isLoading && !isAbandoned
+
     /** Someone reached the target but the top is tied: nobody wins yet. */
     val isTiedAtTarget: Boolean get() = winner == null && !isFinished && totals.any { it.total >= targetScore }
 }
@@ -118,12 +124,18 @@ class ScoreboardViewModel(
         _editor.value = editor.copy(isSaving = true)
         viewModelScope.launch {
             val scores = mapOf(editor.participantId to points)
-            if (editor.editingHandId == null) {
-                repository.saveHand(matchId, scores)
-            } else {
-                repository.editHand(editor.editingHandId, scores)
+            try {
+                if (editor.editingHandId == null) {
+                    repository.saveHand(matchId, scores)
+                } else {
+                    repository.editHand(editor.editingHandId, scores)
+                }
+            } catch (e: IllegalArgumentException) {
+                // The repository rejected the change (e.g. the match was abandoned meanwhile).
+                // The screen keeps showing the database as it is, so just close the sheet.
+            } finally {
+                _editor.value = null
             }
-            _editor.value = null
         }
     }
 

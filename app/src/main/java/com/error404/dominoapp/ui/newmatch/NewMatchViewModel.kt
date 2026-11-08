@@ -7,11 +7,14 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.error404.dominoapp.DominoApplication
+import com.error404.dominoapp.data.local.entity.MatchWithParticipants
 import com.error404.dominoapp.data.local.entity.Mode
 import com.error404.dominoapp.data.repository.MatchRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -43,6 +46,10 @@ class NewMatchViewModel(private val repository: MatchRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow(NewMatchUiState())
     val uiState: StateFlow<NewMatchUiState> = _uiState.asStateFlow()
+
+    /** The match left in progress (e.g. the app was closed mid-game), offered with "Continuar". */
+    val matchInProgress: StateFlow<MatchWithParticipants?> = repository.observeMatchInProgress()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     fun onModeChange(mode: Mode) = _uiState.update { state ->
         // Pairs always means exactly two teams; keep the first two names typed.

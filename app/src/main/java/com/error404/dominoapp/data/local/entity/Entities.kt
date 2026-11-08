@@ -99,6 +99,21 @@ data class ParticipantTotal(
     val total: Int,
 )
 
+/** Like [ParticipantTotal], but tagged with its match: used to build the history in one query. */
+data class MatchParticipantTotal(
+    val matchId: Long,
+    val participantId: Long,
+    val name: String,
+    val position: Int,
+    val total: Int,
+)
+
+/** A match plus how many hands were played in it (used by the history list). */
+data class MatchWithHandCount(
+    @Embedded val match: MatchEntity,
+    val handCount: Int,
+)
+
 /** A hand together with every participant's points. */
 data class HandWithScores(
     @Embedded val hand: HandEntity,

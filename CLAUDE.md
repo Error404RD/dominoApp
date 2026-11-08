@@ -8,17 +8,20 @@ Built so far (MVVM, one package per layer):
 - `domain/DominoRules` — pure winner rule (unit-tested in `app/src/test`).
 - `data/local` — Room: `matches`, `participants`, `hands`, `hand_scores`; `MatchDao` (instrumented tests in `app/src/androidTest`).
 - `data/repository/MatchRepository` — single entry point for the UI; every write that changes totals recomputes the winner (instrumented tests).
-- `ui/newmatch` — "Nueva partida" screen + ViewModel. `ui/scoreboard` — scoreboard, add/edit/delete hands in a bottom sheet, winner banner.
-- `ui/DominoNavHost` — routes `new_match` and `scoreboard/{matchId}` (ViewModels read `matchId` via `SavedStateHandle`).
+- `ui/newmatch` — "Nueva partida" screen + ViewModel; shows a "Continuar" card when a match is in progress.
+- `ui/scoreboard` — scoreboard, add/edit/delete hands in a bottom sheet, winner banner. Abandoned matches are read-only (the repository rejects changes to them).
+- `ui/history` — every match (`MatchRepository.observeMatchSummaries()`): in progress first, then most recently finished; delete with confirmation.
+- `ui/DominoNavHost` — routes `new_match`, `history` and `scoreboard/{matchId}` (ViewModels read `matchId` via `SavedStateHandle`).
 - ViewModels get the repository from `DominoApplication` through a `viewModelFactory` (no DI library).
 
-Not built yet: match history screen, resuming the in-progress match on app start, ViewModel unit tests.
+Not built yet: ViewModel unit tests (behaviour is covered by the instrumented screen tests).
 
 ## Testing
 
 - Instrumented tests (`app/src/androidTest`) need the emulator (`Pixel_3a_API_34`). UI tests use the Compose testing APIs; there is no Robolectric, so `./gradlew test` only runs `DominoRules` tests.
 - `DominoTestRunner` (set as `testInstrumentationRunner`) swaps `DominoApplication` for `TestDominoApplication`, which uses an **in-memory** Room database: tests never touch matches saved on the device. Keep `DominoApplication.database` `open` for this.
-- Screen tests (`ui/newmatch/NewMatchScreenTest`, `ui/scoreboard/ScoreboardScreenTest`) build the real ViewModel with an in-memory repository and pass it to the screen; `ui/AppNavigationTest` drives `MainActivity` end to end (navigation, back, rotation via `scenario.recreate()`).
+- `AppNavigationTest` wipes the in-memory database before each test with an `ExternalResource` rule (`order = 0`, before the activity launches): the database lives as long as the test process, so data would otherwise leak between tests.
+- Screen tests (`ui/newmatch/NewMatchScreenTest`, `ui/scoreboard/ScoreboardScreenTest`, `ui/history/HistoryScreenTest`) build the real ViewModel with an in-memory repository and pass it to the screen; `ui/AppNavigationTest` drives `MainActivity` end to end (navigation, back, rotation via `scenario.recreate()`).
 - Every new screen gets a `*ScreenTest`; every bug found gets a regression test.
 - Helpers in `ui/ComposeTestHelpers.kt`: `str(R.string.x)` (never hardcode UI text), `field(label)`, and `waitForText` / `waitForNoText` / `waitForDescription`. Room writes run off the Compose test clock, so always wait for DB-driven UI; on timeout they print the whole semantics tree.
 - Gotchas: during navigation both screens are on screen at once (wait for something only the new screen has); with the keyboard open the pinned bottom bar covers content, so `performScrollTo()` before clicking; repeated buttons need a distinct `contentDescription` (e.g. "Anotar puntos para X").

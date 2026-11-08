@@ -23,11 +23,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -60,6 +62,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.error404.dominoapp.R
+import com.error404.dominoapp.data.local.entity.MatchWithParticipants
 import com.error404.dominoapp.data.local.entity.Mode
 import com.error404.dominoapp.ui.theme.DominoAppTheme
 import com.error404.dominoapp.ui.theme.dominoTopAppBarColors
@@ -69,9 +72,12 @@ import com.error404.dominoapp.ui.theme.participantColors
 @Composable
 fun NewMatchScreen(
     onMatchStarted: (matchId: Long) -> Unit,
+    onContinueMatch: (matchId: Long) -> Unit = {},
+    onOpenHistory: () -> Unit = {},
     viewModel: NewMatchViewModel = viewModel(factory = NewMatchViewModel.Factory),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val matchInProgress by viewModel.matchInProgress.collectAsStateWithLifecycle()
 
     // Navigate exactly once when the match has been created.
     LaunchedEffect(state.startedMatchId) {
@@ -83,6 +89,9 @@ fun NewMatchScreen(
 
     NewMatchContent(
         state = state,
+        matchInProgress = matchInProgress,
+        onContinueMatch = onContinueMatch,
+        onOpenHistory = onOpenHistory,
         onModeChange = viewModel::onModeChange,
         onNameChange = viewModel::onNameChange,
         onAddPlayer = viewModel::onAddPlayer,
@@ -97,6 +106,9 @@ fun NewMatchScreen(
 @Composable
 fun NewMatchContent(
     state: NewMatchUiState,
+    matchInProgress: MatchWithParticipants?,
+    onContinueMatch: (Long) -> Unit,
+    onOpenHistory: () -> Unit,
     onModeChange: (Mode) -> Unit,
     onNameChange: (Int, String) -> Unit,
     onAddPlayer: () -> Unit,
@@ -108,6 +120,11 @@ fun NewMatchContent(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.new_match_title)) },
+                actions = {
+                    IconButton(onClick = onOpenHistory) {
+                        Icon(Icons.AutoMirrored.Filled.List, contentDescription = stringResource(R.string.open_history))
+                    }
+                },
                 colors = dominoTopAppBarColors(),
             )
         },
@@ -122,6 +139,7 @@ fun NewMatchContent(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
+            matchInProgress?.let { ContinueMatchCard(it, onContinueMatch) }
             ModeSection(state.mode, onModeChange)
             NamesSection(state, onNameChange, onAddPlayer, onRemovePlayer)
             TargetScoreSection(state, onTargetScoreChange)
@@ -130,6 +148,41 @@ fun NewMatchContent(
 }
 
 // ---------- Sections ----------
+
+/** Offers to go back to the match left in progress (e.g. the app was closed mid-game). */
+@Composable
+private fun ContinueMatchCard(match: MatchWithParticipants, onContinue: (Long) -> Unit) {
+    val names = match.participants
+        .sortedBy { it.position }
+        .joinToString(stringResource(R.string.names_separator)) { it.name }
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+        ),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(stringResource(R.string.in_progress_title), style = MaterialTheme.typography.titleMedium)
+            Text(names, style = MaterialTheme.typography.headlineSmall)
+            Button(
+                onClick = { onContinue(match.match.id) },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    contentColor = MaterialTheme.colorScheme.onSecondary,
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 48.dp),
+            ) {
+                Icon(Icons.Filled.PlayArrow, contentDescription = null)
+                Spacer(Modifier.width(8.dp))
+                Text(stringResource(R.string.continue_match), style = MaterialTheme.typography.titleMedium)
+            }
+            Text(stringResource(R.string.in_progress_warning), style = MaterialTheme.typography.bodySmall)
+        }
+    }
+}
 
 /** A titled card that groups one part of the form. */
 @Composable
@@ -358,6 +411,7 @@ private fun NewMatchContentPreview() {
     DominoAppTheme {
         NewMatchContent(
             state = NewMatchUiState(mode = Mode.INDIVIDUAL, names = listOf("Ana", "Luis", "")),
+            matchInProgress = null, onContinueMatch = {}, onOpenHistory = {},
             onModeChange = {}, onNameChange = { _, _ -> }, onAddPlayer = {},
             onRemovePlayer = {}, onTargetScoreChange = {}, onStart = {},
         )

@@ -18,6 +18,24 @@
     <string name="target_score_custom">Otro</string>
     <string name="target_score_error">Escribe un número mayor que 0</string>
     <string name="start_match">Empezar partida</string>
+    <string name="open_history">Ver historial</string>
+    <string name="in_progress_title">Partida en curso</string>
+    <string name="continue_match">Continuar</string>
+    <string name="in_progress_warning">Si empiezas una nueva, esta quedará abandonada.</string>
+    <string name="names_separator">" vs "</string>
+
+    <!-- Historial -->
+    <string name="history_title">Historial</string>
+    <string name="history_empty">Todavía no hay partidas. Las que juegues aparecerán aquí.</string>
+    <string name="status_in_progress">En curso</string>
+    <string name="status_abandoned">Abandonada</string>
+    <string name="history_footer">Meta: %1$d · Manos: %2$d</string>
+    <string name="winner_cd">Ganador</string>
+    <string name="delete_match_cd">Eliminar partida %1$s</string>
+    <string name="delete_match_title">¿Eliminar partida?</string>
+    <string name="delete_match_text">Se borrarán todas sus manos. Esto no se puede deshacer.</string>
+    <string name="delete">Eliminar</string>
+    <string name="cancel">Cancelar</string>
 
     <!-- Marcador -->
     <string name="scoreboard_title">Marcador</string>
@@ -34,6 +52,7 @@
     <string name="winner_title">¡Victoria para %1$s!</string>
     <string name="winner_subtitle">con %1$d puntos</string>
     <string name="tie_message">Empate en la meta: se juega otra mano</string>
+    <string name="abandoned_notice">Esta partida quedó abandonada porque se empezó otra. Solo se puede consultar.</string>
 
     <!-- Hoja para anotar / editar una mano -->
     <string name="editor_new_title">Anotar mano</string>

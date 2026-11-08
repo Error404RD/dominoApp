@@ -17,9 +17,11 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.error404.dominoapp.R
 import com.error404.dominoapp.data.local.DominoDatabase
+import com.error404.dominoapp.data.local.entity.Mode
 import com.error404.dominoapp.data.repository.MatchRepository
 import com.error404.dominoapp.ui.field
 import com.error404.dominoapp.ui.str
+import com.error404.dominoapp.ui.waitForText
 import com.error404.dominoapp.ui.theme.DominoAppTheme
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -40,6 +42,7 @@ class NewMatchScreenTest {
     private lateinit var db: DominoDatabase
     private lateinit var repository: MatchRepository
     private var startedMatchId: Long? = null
+    private var continuedMatchId: Long? = null
 
     private val startButton get() = rule.onNodeWithText(str(R.string.start_match))
 
@@ -52,7 +55,11 @@ class NewMatchScreenTest {
         val viewModel = NewMatchViewModel(repository)
         rule.setContent {
             DominoAppTheme {
-                NewMatchScreen(onMatchStarted = { startedMatchId = it }, viewModel = viewModel)
+                NewMatchScreen(
+                    onMatchStarted = { startedMatchId = it },
+                    onContinueMatch = { continuedMatchId = it },
+                    viewModel = viewModel,
+                )
             }
         }
     }
@@ -144,6 +151,22 @@ class NewMatchScreenTest {
         // Typed one key at a time, like a person: "1" ok, "1a" rejected, "12" ok.
         listOf("1", "a", "2").forEach { targetField.performTextInput(it) }
         targetField.assertTextContains("12")
+    }
+
+    @Test
+    fun noMatchInProgress_hidesTheContinueCard() {
+        rule.onNodeWithText(str(R.string.in_progress_title)).assertDoesNotExist()
+    }
+
+    @Test
+    fun matchInProgress_offersToContinueIt() {
+        val matchId = runBlocking { repository.startMatch(Mode.PAIRS, listOf("Nosotros", "Ellos"), 200) }
+
+        rule.waitForText(str(R.string.in_progress_title))
+        rule.onNodeWithText("Nosotros vs Ellos").assertExists()
+        rule.onNodeWithText(str(R.string.continue_match)).performClick()
+
+        assertEquals(matchId, continuedMatchId)
     }
 
     @Test

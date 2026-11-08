@@ -156,6 +156,9 @@ fun ScoreboardContent(
             if (state.isTiedAtTarget) {
                 item(key = "tie") { TieNotice() }
             }
+            if (state.isAbandoned) {
+                item(key = "abandoned") { AbandonedNotice() }
+            }
             item(key = "scores") {
                 ScoreGrid(state, onAddPoints)
             }
@@ -177,7 +180,7 @@ fun ScoreboardContent(
                 }
             }
             items(state.hands, key = { it.hand.id }) { hand ->
-                HandRow(hand, state.totals, onClick = { onEditHand(hand) })
+                HandRow(hand, state.totals, editable = state.canEditHands, onClick = { onEditHand(hand) })
             }
         }
     }
@@ -340,14 +343,37 @@ private fun TieNotice() {
     }
 }
 
+@Composable
+private fun AbandonedNotice() {
+    Card(
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Text(
+            stringResource(R.string.abandoned_notice),
+            style = MaterialTheme.typography.bodyLarge,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        )
+    }
+}
+
 // ---------- Hands ----------
 
 /** One played hand: its number and each participant's points, in their color. Tap to edit. */
 @Composable
-private fun HandRow(hand: HandWithScores, participants: List<ParticipantTotal>, onClick: () -> Unit) {
+private fun HandRow(
+    hand: HandWithScores,
+    participants: List<ParticipantTotal>,
+    editable: Boolean,
+    onClick: () -> Unit,
+) {
     val pointsById = hand.scores.associate { it.participantId to it.points }
     Card(
         onClick = onClick,
+        enabled = editable,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -383,12 +409,14 @@ private fun HandRow(hand: HandWithScores, participants: List<ParticipantTotal>, 
                     }
                 }
             }
-            Icon(
-                Icons.Filled.Edit,
-                contentDescription = stringResource(R.string.edit_hand, hand.hand.number),
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.size(20.dp),
-            )
+            if (editable) {
+                Icon(
+                    Icons.Filled.Edit,
+                    contentDescription = stringResource(R.string.edit_hand, hand.hand.number),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(20.dp),
+                )
+            }
         }
     }
 }

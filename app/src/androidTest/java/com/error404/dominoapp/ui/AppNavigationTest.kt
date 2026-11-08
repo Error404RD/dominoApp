@@ -10,9 +10,12 @@ import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
 import androidx.test.espresso.Espresso
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.core.app.ApplicationProvider
+import com.error404.dominoapp.DominoApplication
 import com.error404.dominoapp.MainActivity
 import com.error404.dominoapp.R
 import org.junit.Rule
+import org.junit.rules.ExternalResource
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -23,7 +26,18 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class AppNavigationTest {
 
-    @get:Rule
+    /**
+     * The in-memory database lives as long as the test process, so matches from one test would
+     * show up in the next one's history. Wipe it before the app opens (order = 0 runs first).
+     */
+    @get:Rule(order = 0)
+    val emptyDatabase = object : ExternalResource() {
+        override fun before() {
+            ApplicationProvider.getApplicationContext<DominoApplication>().database.clearAllTables()
+        }
+    }
+
+    @get:Rule(order = 1)
     val rule = createAndroidComposeRule<MainActivity>()
 
     private fun teamField(n: Int) = rule.field(str(R.string.team_name_hint, n))
@@ -79,6 +93,42 @@ class AppNavigationTest {
     @Test
     fun systemBack_returnsFromScoreboardToTheForm() {
         startMatch()
+        Espresso.pressBack()
+        rule.waitForText(str(R.string.start_match))
+    }
+
+    @Test
+    fun leavingAMatch_thenContinue_returnsToTheSameScoreboard() {
+        startMatch()
+        addHand("Nosotros", "25")
+        rule.waitForText(str(R.string.points_left, 75))
+        rule.onNodeWithContentDescription(str(R.string.back)).performClick()
+
+        rule.waitForText(str(R.string.in_progress_title))
+        rule.onNodeWithText(str(R.string.continue_match)).performScrollTo().performClick()
+
+        rule.waitForText(str(R.string.points_left, 75))
+        rule.onNodeWithText("+25").assertExists()
+    }
+
+    @Test
+    fun finishedMatch_appearsInHistory_andOpensItsScoreboard() {
+        startMatch()
+        addHand("Ellos", "100")
+        rule.waitForText(str(R.string.winner_title, "Ellos"))
+        rule.onNodeWithText(str(R.string.new_match_title)).performClick()
+        rule.waitForText(str(R.string.start_match))
+
+        rule.onNodeWithContentDescription(str(R.string.open_history)).performClick()
+        rule.waitForText(str(R.string.history_title))
+        rule.waitForText(str(R.string.history_footer, 100, 1))
+
+        rule.onNodeWithText(str(R.string.history_footer, 100, 1)).performClick()
+        rule.waitForText(str(R.string.winner_title, "Ellos"))
+
+        // Back twice: scoreboard -> history -> new match.
+        Espresso.pressBack()
+        rule.waitForText(str(R.string.history_footer, 100, 1))
         Espresso.pressBack()
         rule.waitForText(str(R.string.start_match))
     }
