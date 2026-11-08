@@ -122,6 +122,18 @@ fun participantColors(position: Int): ParticipantColors {
 }
 
 /**
+ * Sun-yellow colors that celebrate the winner: the bright yellow container in
+ * light mode (the solid tertiary looks olive there), the golden tertiary in dark mode.
+ */
+@Composable
+fun winnerColors(): ParticipantColors {
+    val c = MaterialTheme.colorScheme
+    val isDark = c.background.luminance() < 0.5f
+    return if (isDark) ParticipantColors(c.tertiary, c.onTertiary)
+    else ParticipantColors(c.tertiaryContainer, c.onTertiaryContainer)
+}
+
+/**
  * Brand top bar: solid turquoise in light mode, deep teal in dark mode
  * (a bright bar at night would glare). Use it in every screen's TopAppBar.
  */

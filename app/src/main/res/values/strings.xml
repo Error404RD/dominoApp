@@ -19,7 +19,26 @@
     <string name="target_score_error">Escribe un número mayor que 0</string>
     <string name="start_match">Empezar partida</string>
 
-    <!-- Marcador (temporal, hasta que exista la pantalla real) -->
+    <!-- Marcador -->
     <string name="scoreboard_title">Marcador</string>
-    <string name="match_started_placeholder">Partida #%1$d iniciada</string>
+    <string name="back">Volver</string>
+    <string name="target_info">Meta: %1$d</string>
+    <string name="points_left">Faltan %1$d</string>
+    <string name="target_reached">¡Meta alcanzada!</string>
+    <string name="add_points">Anotar</string>
+    <string name="hands_title">Manos</string>
+    <string name="hand_number">Mano %1$d</string>
+    <string name="edit_hand">Editar mano %1$d</string>
+    <string name="no_hands">Aún no hay manos. Toca «Anotar» en quien ganó la mano.</string>
+    <string name="winner_title">¡Victoria para %1$s!</string>
+    <string name="winner_subtitle">con %1$d puntos</string>
+    <string name="tie_message">Empate en la meta: se juega otra mano</string>
+
+    <!-- Hoja para anotar / editar una mano -->
+    <string name="editor_new_title">Anotar mano</string>
+    <string name="editor_edit_title">Editar mano %1$d</string>
+    <string name="editor_who">¿Quién ganó la mano?</string>
+    <string name="editor_points">Puntos</string>
+    <string name="save">Guardar</string>
+    <string name="delete_hand">Eliminar mano</string>
 </resources>

@@ -4,7 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project state
 
-`dominoApp` is a freshly generated Android Studio "Empty Compose Activity" project. No domino logic exists yet: `MainActivity.kt` still renders the template `Greeting` composable, and the tests are the generated `ExampleUnitTest` / `ExampleInstrumentedTest`. Treat the current structure as a starting point, not as established conventions.
+Built so far (MVVM, one package per layer):
+- `domain/DominoRules` — pure winner rule (unit-tested in `app/src/test`).
+- `data/local` — Room: `matches`, `participants`, `hands`, `hand_scores`; `MatchDao` (instrumented tests in `app/src/androidTest`).
+- `data/repository/MatchRepository` — single entry point for the UI; every write that changes totals recomputes the winner (instrumented tests).
+- `ui/newmatch` — "Nueva partida" screen + ViewModel. `ui/scoreboard` — scoreboard, add/edit/delete hands in a bottom sheet, winner banner.
+- `ui/DominoNavHost` — routes `new_match` and `scoreboard/{matchId}` (ViewModels read `matchId` via `SavedStateHandle`).
+- ViewModels get the repository from `DominoApplication` through a `viewModelFactory` (no DI library).
+
+Not built yet: match history screen, resuming the in-progress match on app start, ViewModel unit tests.
 
 ## Build & test commands
 
