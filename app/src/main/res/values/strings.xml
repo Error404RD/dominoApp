@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">dominoApp</string>
+
+    <!-- Nueva partida -->
+    <string name="new_match_title">Nueva partida</string>
+    <string name="mode_label">Modo de juego</string>
+    <string name="mode_pairs">Parejas</string>
+    <string name="mode_individual">Individual</string>
+    <string name="teams_label">Equipos</string>
+    <string name="players_label">Jugadores</string>
+    <string name="team_name_hint">Equipo %1$d</string>
+    <string name="player_name_hint">Jugador %1$d</string>
+    <string name="remove_player">Quitar a %1$s</string>
+    <string name="add_player">Agregar jugador</string>
+    <string name="target_score_label">Puntaje meta</string>
+    <string name="target_score_error">Escribe un número mayor que 0</string>
+    <string name="start_match">Empezar partida</string>
+
+    <!-- Temporal, hasta que exista la pantalla del marcador -->
+    <string name="match_started_placeholder">Partida #%1$d iniciada</string>
 </resources>

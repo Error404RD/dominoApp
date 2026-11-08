@@ -36,7 +36,7 @@ The default `java` on this machine is JDK 22, which Gradle 8.6 cannot run on ("U
 - Toolchain pins that constrain upgrades:
   - AGP 8.4.1, Gradle 8.6, Kotlin 1.9.0, Compose compiler extension `1.5.1` (must stay matched to the Kotlin version — Kotlin 2.x requires switching to the `org.jetbrains.kotlin.plugin.compose` plugin instead of `composeOptions`).
   - `core-ktx` is held at 1.13.1 and `activity-compose` at 1.9.3 on purpose: 1.16.0 / 1.10.x require `compileSdk 35` and AGP 8.6+ and break the build. Before bumping any AndroidX library, check its minimum compileSdk/AGP. Upgrading AGP also requires a newer Gradle wrapper.
-  - Compose BOM `2023.08.00` is old; newer BOMs may require a newer Kotlin/Compose compiler.
+  - Compose BOM is `2024.02.00` (Compose 1.6.x, Material 3 1.2). It must stay at least as new as the Compose version that `navigation-compose`/`lifecycle` pull in transitively: a mismatch compiles fine but crashes at runtime with `NoSuchMethodError` (seen with BOM 2023.08 + navigation 2.7.7). Check with `./gradlew :app:dependencies --configuration debugRuntimeClasspath`. Newer BOMs may require a newer Kotlin/Compose compiler.
   - `compileSdk`/`minSdk`/`targetSdk` are all 34, so no API-level guards below 34 are needed.
   - Java/JVM target is 1.8.
 
