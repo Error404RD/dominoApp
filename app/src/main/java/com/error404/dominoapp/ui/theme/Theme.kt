@@ -10,6 +10,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.unit.dp
 
@@ -99,6 +100,25 @@ fun DominoAppTheme(
         shapes = DominoShapes,
         content = content,
     )
+}
+
+/** Background + content color pair that identifies one participant. */
+data class ParticipantColors(val container: Color, val content: Color)
+
+/**
+ * Each participant keeps the same color on every screen (by position):
+ * 1 = coral, 2 = turquoise, 3 = sun, 4 = neutral.
+ * The winner is highlighted separately with the solid tertiary color.
+ */
+@Composable
+fun participantColors(position: Int): ParticipantColors {
+    val c = MaterialTheme.colorScheme
+    return when (position % 4) {
+        0 -> ParticipantColors(c.primaryContainer, c.onPrimaryContainer)
+        1 -> ParticipantColors(c.secondaryContainer, c.onSecondaryContainer)
+        2 -> ParticipantColors(c.tertiaryContainer, c.onTertiaryContainer)
+        else -> ParticipantColors(c.inverseSurface, c.inverseOnSurface)
+    }
 }
 
 /**

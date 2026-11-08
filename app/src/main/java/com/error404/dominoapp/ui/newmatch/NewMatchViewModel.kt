@@ -34,6 +34,8 @@ data class NewMatchUiState(
         const val DEFAULT_TARGET_SCORE = 200
         const val MIN_PARTICIPANTS = 2
         const val MAX_PLAYERS = 4
+        /** Quick-pick target scores shown as chips. */
+        val TARGET_PRESETS = listOf(100, 150, 200, 250)
     }
 }
 
