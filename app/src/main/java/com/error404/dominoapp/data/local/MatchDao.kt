@@ -67,6 +67,12 @@ interface MatchDao {
     @Query("SELECT * FROM hands WHERE id = :handId")
     suspend fun getHand(handId: Long): HandEntity?
 
+    @Query("SELECT * FROM participants WHERE matchId = :matchId ORDER BY position")
+    suspend fun getParticipants(matchId: Long): List<ParticipantEntity>
+
+    @Query("SELECT * FROM matches WHERE finishedAt IS NULL")
+    suspend fun getMatchesInProgress(): List<MatchEntity>
+
     @Query("SELECT COALESCE(MAX(number), 0) + 1 FROM hands WHERE matchId = :matchId")
     suspend fun nextHandNumber(matchId: Long): Int
 
