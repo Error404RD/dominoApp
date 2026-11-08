@@ -16,6 +16,7 @@
     <string name="target_score_error">Escribe un número mayor que 0</string>
     <string name="start_match">Empezar partida</string>
 
-    <!-- Temporal, hasta que exista la pantalla del marcador -->
+    <!-- Marcador (temporal, hasta que exista la pantalla real) -->
+    <string name="scoreboard_title">Marcador</string>
     <string name="match_started_placeholder">Partida #%1$d iniciada</string>
 </resources>

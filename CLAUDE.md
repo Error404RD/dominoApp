@@ -31,7 +31,7 @@ The default `java` on this machine is JDK 22, which Gradle 8.6 cannot run on ("U
 ## Architecture & configuration
 
 - Single module `:app`, package/namespace `com.error404.dominoapp`. Entry point is `MainActivity` (a `ComponentActivity` using `enableEdgeToEdge()` + `setContent { DominoAppTheme { ... } }`).
-- UI is Jetpack Compose + Material 3 only (no XML layouts). Theme lives in `ui/theme/` (`DominoAppTheme` uses dynamic color on Android 12+, falling back to the Purple/Pink template palette).
+- UI is Jetpack Compose + Material 3 only (no XML layouts). Theme lives in `ui/theme/`: custom "Caribbean" palette with light and dark schemes (primary = coral for actions, secondary = turquoise for the brand top bar, tertiary = sun yellow reserved for the winner), dynamic color intentionally off. Every screen's `TopAppBar` uses `dominoTopAppBarColors()`; status bar icons are forced light in `MainActivity`, so every screen needs that turquoise top bar. Display/headline styles use tabular digits (`tnum`) for scores.
 - Dependencies are managed through the version catalog `gradle/libs.versions.toml`; build scripts are Groovy (`build.gradle`, not `.kts`). Add new libraries to the catalog and reference them as `libs.<alias>`.
 - Toolchain pins that constrain upgrades:
   - AGP 8.4.1, Gradle 8.6, Kotlin 1.9.0, Compose compiler extension `1.5.1` (must stay matched to the Kotlin version — Kotlin 2.x requires switching to the `org.jetbrains.kotlin.plugin.compose` plugin instead of `composeOptions`).

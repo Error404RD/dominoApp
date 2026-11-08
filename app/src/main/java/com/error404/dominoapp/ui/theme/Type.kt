@@ -2,33 +2,26 @@ package com.error404.dominoapp.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 
-// Set of Material typography styles to start with
+private val Default = Typography()
+
+/**
+ * "tnum" = tabular numbers: every digit has the same width,
+ * so a score going from 95 to 100 doesn't make the layout jump.
+ */
+private fun TextStyle.scoreDigits(weight: FontWeight) =
+    copy(fontWeight = weight, fontFeatureSettings = "tnum")
+
+/** Material type scale with bolder headings; display styles are for the big scores. */
 val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
-    ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
-    )
-    */
+    displayLarge = Default.displayLarge.scoreDigits(FontWeight.Black),
+    displayMedium = Default.displayMedium.scoreDigits(FontWeight.Black),
+    displaySmall = Default.displaySmall.scoreDigits(FontWeight.Bold),
+    headlineLarge = Default.headlineLarge.scoreDigits(FontWeight.Bold),
+    headlineMedium = Default.headlineMedium.scoreDigits(FontWeight.Bold),
+    headlineSmall = Default.headlineSmall.scoreDigits(FontWeight.SemiBold),
+    titleLarge = Default.titleLarge.copy(fontWeight = FontWeight.Bold),
+    titleMedium = Default.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+    labelLarge = Default.labelLarge.copy(fontWeight = FontWeight.SemiBold),
 )

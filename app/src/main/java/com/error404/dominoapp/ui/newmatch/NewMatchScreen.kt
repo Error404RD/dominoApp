@@ -45,6 +45,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.error404.dominoapp.R
 import com.error404.dominoapp.data.local.entity.Mode
 import com.error404.dominoapp.ui.theme.DominoAppTheme
+import com.error404.dominoapp.ui.theme.dominoTopAppBarColors
 
 /** Stateful entry point: connects the ViewModel to the stateless [NewMatchContent]. */
 @Composable
@@ -86,7 +87,12 @@ fun NewMatchContent(
     onStart: () -> Unit,
 ) {
     Scaffold(
-        topBar = { TopAppBar(title = { Text(stringResource(R.string.new_match_title)) }) },
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.new_match_title)) },
+                colors = dominoTopAppBarColors(),
+            )
+        },
     ) { innerPadding ->
         Column(
             modifier = Modifier
