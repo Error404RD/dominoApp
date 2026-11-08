@@ -62,3 +62,4 @@ The default `java` on this machine is JDK 22, which Gradle 8.6 cannot run on ("U
 - Usa siempre los colores y tipografía del tema de Material 3, nunca valores sueltos.
 - Botones táctiles de al menos 48dp y textos del marcador grandes.
 - Compila con ./gradlew assembleDebug después de cada cambio.
+- Todo el código en inglés: clases, funciones, variables, tablas/columnas de Room y comentarios. Solo los textos que ve el usuario (en `strings.xml`) van en español.
