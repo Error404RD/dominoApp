@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Agent skills (third-party; reinstall from skills-lock.json)
+.claude/skills/
+.claude/settings.local.json
