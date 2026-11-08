@@ -66,21 +66,21 @@ The default `java` on this machine is JDK 22, which Gradle 8.6 cannot run on ("U
 `.claude/skills/` contains Android-specific skills (Compose, Material 3, Room, Navigation 3, coroutines/Flow, testing setup, edge-to-edge, AGP 9 upgrade, etc.), tracked in `skills-lock.json`. Prefer invoking the relevant skill when doing that kind of work.
 
 
-# App de dominó
+# Domino app
 
-## Qué hace
-- Registra los puntos de cada equipo o jugador durante un partido de dominó.
-- El usuario define el puntaje meta al iniciar; al alcanzarlo, la app declara al ganador.
-- Guarda el historial de partidas en el dispositivo.
+## What it does
+- Tracks the points of each team or player during a domino match.
+- The user sets the target score when starting; when it is reached, the app declares the winner.
+- Saves the match history on the device.
 
 ## Stack
 - Kotlin, Jetpack Compose, Material 3.
-- Room (sobre SQLite) para la base de datos local. Sin backend ni internet.
-- Arquitectura MVVM: Screen (Compose) -> ViewModel -> Repository -> Room DAO.
+- Room (on top of SQLite) for the local database. No backend, no internet.
+- MVVM architecture: Screen (Compose) -> ViewModel -> Repository -> Room DAO.
 
-## Reglas
-- Soy principiante: explica cada decisión importante en español antes de escribir el código.
-- Usa siempre los colores y tipografía del tema de Material 3, nunca valores sueltos.
-- Botones táctiles de al menos 48dp y textos del marcador grandes.
-- Compila con ./gradlew assembleDebug después de cada cambio.
-- Todo el código en inglés: clases, funciones, variables, tablas/columnas de Room y comentarios. Solo los textos que ve el usuario (en `strings.xml`) van en español.
+## Rules
+- I'm a beginner: explain every important decision in Spanish before writing the code.
+- Always use the Material 3 theme's colors and typography, never hardcoded values.
+- Touch targets of at least 48dp, and large scoreboard text.
+- Build with ./gradlew assembleDebug after every change.
+- All code in English: classes, functions, variables, Room tables/columns and comments. Only user-facing text (in `strings.xml`) is in Spanish.
