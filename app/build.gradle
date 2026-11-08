@@ -1,6 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+}
+
+ksp {
+    // Room exporta aquí el esquema de la base de datos (sirve para migraciones futuras).
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
 
 android {
@@ -56,7 +62,23 @@ dependencies {
     implementation libs.androidx.ui.graphics
     implementation libs.androidx.ui.tooling.preview
     implementation libs.androidx.material3
+
+    // Base de datos local
+    implementation libs.androidx.room.runtime
+    implementation libs.androidx.room.ktx
+    ksp libs.androidx.room.compiler
+
+    // ViewModel y lectura de Flow en Compose
+    implementation libs.androidx.lifecycle.viewmodel.compose
+    implementation libs.androidx.lifecycle.runtime.compose
+
+    // Navegación entre pantallas
+    implementation libs.androidx.navigation.compose
+
     testImplementation libs.junit
+    testImplementation libs.kotlinx.coroutines.test
+    androidTestImplementation libs.androidx.room.testing
+    androidTestImplementation libs.kotlinx.coroutines.test
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
     androidTestImplementation platform(libs.androidx.compose.bom)

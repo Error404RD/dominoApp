@@ -10,6 +10,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Run from the repo root. On Windows use `.\gradlew.bat` (PowerShell) or `./gradlew` (Git Bash).
 
+The default `java` on this machine is JDK 22, which Gradle 8.6 cannot run on ("Unsupported class file major version 66"). Point Gradle at Android Studio's bundled JDK 17 first:
+`export JAVA_HOME="/c/Program Files/Android/Android Studio/jbr"` (Git Bash) or `$env:JAVA_HOME = "C:\Program Files\Android\Android Studio\jbr"` (PowerShell).
+
 ```
 ./gradlew assembleDebug                 # build debug APK
 ./gradlew installDebug                  # install on connected device/emulator
