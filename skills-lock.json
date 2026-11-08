@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "skills": {
+    "android-compose-accessibility": {
+      "source": "krutikjain/android-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/android-compose-accessibility/SKILL.md",
+      "computedHash": "375409dffd609bfb7b22dacef8853c4fb3570c3ad6991838cf46a190a41a8e2b"
+    },
+    "android-compose-foundations": {
+      "source": "krutikjain/android-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/android-compose-foundations/SKILL.md",
+      "computedHash": "d0626d2fbf610f7f1992b935c97c0fb5ad44c4b5167f68a2c3262bbe9bf67250"
+    },
+    "android-coroutines-flow": {
+      "source": "krutikjain/android-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/android-coroutines-flow/SKILL.md",
+      "computedHash": "bea994a461f0035fc1dd247741939b5cf18d9b4d98b8295b1f1004c450a40e32"
+    },
+    "android-kotlin-core": {
+      "source": "krutikjain/android-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/android-kotlin-core/SKILL.md",
+      "computedHash": "e1df5a8983b8cab9d9b43cf5e58e66ae5aa5aedb15f4ef830e185feed1de1144"
+    },
+    "android-material3-design-system": {
+      "source": "krutikjain/android-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/android-material3-design-system/SKILL.md",
+      "computedHash": "16cfbcb633b02a4fa19b3f3524c3549fe9166842bb9061c6b91ab33a364e9631"
+    },
+    "android-room-database": {
+      "source": "krutikjain/android-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/android-room-database/SKILL.md",
+      "computedHash": "6c3782f9595ad9625e54dff5a03257833da221b407cbe01c2459c07d90f16f8f"
+    }
+  }
+}
