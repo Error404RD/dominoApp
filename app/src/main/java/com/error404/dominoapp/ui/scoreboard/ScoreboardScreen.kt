@@ -59,6 +59,8 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
@@ -263,13 +265,16 @@ private fun ScoreCard(
             )
             if (canAdd) {
                 Spacer(Modifier.size(12.dp))
+                // Every card says "Anotar"; this label tells TalkBack (and tests) whose button it is.
+                val addLabel = stringResource(R.string.add_points_for, participant.name)
                 // Inverted colors so the button stands out on the colored card.
                 Button(
                     onClick = onAdd,
                     colors = ButtonDefaults.buttonColors(containerColor = colors.content, contentColor = colors.container),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(min = 48.dp),
+                        .heightIn(min = 48.dp)
+                        .semantics { contentDescription = addLabel },
                 ) {
                     Icon(Icons.Filled.Add, contentDescription = null)
                     Spacer(Modifier.width(4.dp))
@@ -405,10 +410,12 @@ private fun HandEditorSheet(
     val focusRequester = remember { FocusRequester() }
     // Start with the whole number selected, so typing replaces it (handy when editing).
     var selection by remember { mutableStateOf(TextRange(0, editor.pointsText.length)) }
-    // Open the keyboard right away: the user came here to type points.
-    LaunchedEffect(Unit) { focusRequester.requestFocus() }
-
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
+        // Open the keyboard right away: the user came here to type points.
+        // This must live INSIDE the sheet: its content is composed later, in its own window,
+        // so an effect outside could run before the field exists (crash: FocusRequester not initialized).
+        LaunchedEffect(Unit) { focusRequester.requestFocus() }
+
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier

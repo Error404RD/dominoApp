@@ -26,6 +26,7 @@
     <string name="points_left">Faltan %1$d</string>
     <string name="target_reached">¡Meta alcanzada!</string>
     <string name="add_points">Anotar</string>
+    <string name="add_points_for">Anotar puntos para %1$s</string>
     <string name="hands_title">Manos</string>
     <string name="hand_number">Mano %1$d</string>
     <string name="edit_hand">Editar mano %1$d</string>

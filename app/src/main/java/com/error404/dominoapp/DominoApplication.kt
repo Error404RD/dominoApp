@@ -8,9 +8,10 @@ import com.error404.dominoapp.data.repository.MatchRepository
  * Created once when the app starts. Holds the single database and repository
  * instances; ViewModels get the repository from here.
  */
-class DominoApplication : Application() {
+open class DominoApplication : Application() {
 
     // `by lazy`: created the first time someone uses it, not before.
-    val database: DominoDatabase by lazy { DominoDatabase.create(this) }
+    // `open`: instrumented tests override it with an in-memory database.
+    open val database: DominoDatabase by lazy { DominoDatabase.create(this) }
     val matchRepository: MatchRepository by lazy { MatchRepository(database) }
 }

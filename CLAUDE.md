@@ -14,6 +14,16 @@ Built so far (MVVM, one package per layer):
 
 Not built yet: match history screen, resuming the in-progress match on app start, ViewModel unit tests.
 
+## Testing
+
+- Instrumented tests (`app/src/androidTest`) need the emulator (`Pixel_3a_API_34`). UI tests use the Compose testing APIs; there is no Robolectric, so `./gradlew test` only runs `DominoRules` tests.
+- `DominoTestRunner` (set as `testInstrumentationRunner`) swaps `DominoApplication` for `TestDominoApplication`, which uses an **in-memory** Room database: tests never touch matches saved on the device. Keep `DominoApplication.database` `open` for this.
+- Screen tests (`ui/newmatch/NewMatchScreenTest`, `ui/scoreboard/ScoreboardScreenTest`) build the real ViewModel with an in-memory repository and pass it to the screen; `ui/AppNavigationTest` drives `MainActivity` end to end (navigation, back, rotation via `scenario.recreate()`).
+- Every new screen gets a `*ScreenTest`; every bug found gets a regression test.
+- Helpers in `ui/ComposeTestHelpers.kt`: `str(R.string.x)` (never hardcode UI text), `field(label)`, and `waitForText` / `waitForNoText` / `waitForDescription`. Room writes run off the Compose test clock, so always wait for DB-driven UI; on timeout they print the whole semantics tree.
+- Gotchas: during navigation both screens are on screen at once (wait for something only the new screen has); with the keyboard open the pinned bottom bar covers content, so `performScrollTo()` before clicking; repeated buttons need a distinct `contentDescription` (e.g. "Anotar puntos para X").
+- Run only UI tests: `./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.package=com.error404.dominoapp.ui`
+
 ## Build & test commands
 
 Run from the repo root. On Windows use `.\gradlew.bat` (PowerShell) or `./gradlew` (Git Bash).

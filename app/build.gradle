@@ -20,7 +20,8 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // Custom runner: swaps in TestDominoApplication (in-memory database) during instrumented tests.
+        testInstrumentationRunner "com.error404.dominoapp.DominoTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
