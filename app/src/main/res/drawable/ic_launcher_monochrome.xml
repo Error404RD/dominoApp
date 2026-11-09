@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Themed-icon layer (Android 13+): the system tints it with one color and only reads alpha.
+    The tile is a single path with evenOdd fill, so the divider and pips become holes.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="-18">
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:fillType="evenOdd"
+            android:pathData="M44,26h20a5,5 0,0 1,5 5v46a5,5 0,0 1,-5 5h-20a5,5 0,0 1,-5 -5v-46a5,5 0,0 1,5 -5z
+                M42,53.1h24v1.8h-24z
+                M43.2,32.5a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0z
+                M59.2,32.5a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0z
+                M43.2,40a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0z
+                M59.2,40a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0z
+                M43.2,47.5a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0z
+                M59.2,47.5a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0z
+                M43.2,60.5a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0z
+                M59.2,60.5a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0z
+                M43.2,68a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0z
+                M59.2,68a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0z
+                M43.2,75.5a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0z
+                M59.2,75.5a2.8,2.8 0,1 0,5.6 0a2.8,2.8 0,1 0,-5.6 0z" />
+    </group>
+</vector>

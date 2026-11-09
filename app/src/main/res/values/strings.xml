@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">dominoApp</string>
+    <string name="app_name">Capicúa</string>
 
     <!-- Nueva partida -->
     <string name="new_match_title">Nueva partida</string>
