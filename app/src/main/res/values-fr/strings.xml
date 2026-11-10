@@ -1,0 +1,71 @@
+<!-- French typography:   (non-breaking space) keeps : ? ! » « attached to the word before/after. -->
+<resources>
+    <!-- Nouvelle partie -->
+    <string name="new_match_title">Nouvelle partie</string>
+    <string name="mode_label">Mode de jeu</string>
+    <string name="mode_pairs">Équipes</string>
+    <string name="mode_individual">Individuel</string>
+    <string name="mode_pairs_caption">2 équipes</string>
+    <string name="mode_individual_caption">2 à 4 joueurs</string>
+    <string name="teams_label">Équipes</string>
+    <string name="players_label">Joueurs</string>
+    <string name="team_name_hint">Équipe %1$d</string>
+    <string name="player_name_hint">Joueur %1$d</string>
+    <string name="remove_player">Retirer %1$s</string>
+    <string name="add_player">Ajouter un joueur</string>
+    <string name="target_score_label">Score à atteindre</string>
+    <string name="target_score_custom">Autre</string>
+    <string name="target_score_error">Saisissez un nombre supérieur à 0</string>
+    <string name="start_match">Commencer la partie</string>
+    <string name="open_history">Voir l\'historique</string>
+    <string name="in_progress_title">Partie en cours</string>
+    <string name="continue_match">Continuer</string>
+    <string name="in_progress_warning">Si vous en commencez une nouvelle, celle-ci sera abandonnée.</string>
+    <string name="names_separator">" vs "</string>
+
+    <!-- Historique -->
+    <string name="history_title">Historique</string>
+    <string name="history_empty">Aucune partie pour l\'instant. Celles que vous jouerez apparaîtront ici.</string>
+    <string name="status_in_progress">En cours</string>
+    <string name="status_abandoned">Abandonnée</string>
+    <string name="history_footer">Objectif : %1$d · Manches : %2$d</string>
+    <string name="winner_cd">Gagnant</string>
+    <string name="delete_match_cd">Supprimer la partie %1$s</string>
+    <string name="delete_match_title">Supprimer la partie ?</string>
+    <string name="delete_match_text">Toutes ses manches seront supprimées. Cette action est irréversible.</string>
+    <string name="delete">Supprimer</string>
+    <string name="cancel">Annuler</string>
+
+    <!-- Tableau des scores -->
+    <string name="scoreboard_title">Scores</string>
+    <string name="back">Retour</string>
+    <string name="target_info">Objectif : %1$d</string>
+    <plurals name="points_left">
+        <item quantity="one">Encore %1$d point</item>
+        <item quantity="many">Encore %1$d points</item>
+        <item quantity="other">Encore %1$d points</item>
+    </plurals>
+    <string name="target_reached">Objectif atteint !</string>
+    <string name="add_points">Marquer</string>
+    <string name="add_points_for">Marquer des points pour %1$s</string>
+    <string name="hands_title">Manches</string>
+    <string name="hand_number">Manche %1$d</string>
+    <string name="edit_hand">Modifier la manche %1$d</string>
+    <string name="no_hands">Aucune manche pour l\'instant. Touchez « Marquer » sur le gagnant de la manche.</string>
+    <string name="winner_title">Victoire pour %1$s !</string>
+    <plurals name="winner_subtitle">
+        <item quantity="one">avec %1$d point</item>
+        <item quantity="many">avec %1$d points</item>
+        <item quantity="other">avec %1$d points</item>
+    </plurals>
+    <string name="tie_message">Égalité à l\'objectif : on joue une autre manche</string>
+    <string name="abandoned_notice">Cette partie a été abandonnée car une autre a été commencée. Elle est en lecture seule.</string>
+
+    <!-- Feuille pour marquer / modifier une manche -->
+    <string name="editor_new_title">Marquer une manche</string>
+    <string name="editor_edit_title">Modifier la manche %1$d</string>
+    <string name="editor_who">Qui a gagné la manche ?</string>
+    <string name="editor_points">Points</string>
+    <string name="save">Enregistrer</string>
+    <string name="delete_hand">Supprimer la manche</string>
+</resources>

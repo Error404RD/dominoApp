@@ -1,0 +1,70 @@
+<resources>
+    <!-- Nova partida -->
+    <string name="new_match_title">Nova partida</string>
+    <string name="mode_label">Modo de jogo</string>
+    <string name="mode_pairs">Duplas</string>
+    <string name="mode_individual">Individual</string>
+    <string name="mode_pairs_caption">2 equipes</string>
+    <string name="mode_individual_caption">2 a 4 jogadores</string>
+    <string name="teams_label">Equipes</string>
+    <string name="players_label">Jogadores</string>
+    <string name="team_name_hint">Equipe %1$d</string>
+    <string name="player_name_hint">Jogador %1$d</string>
+    <string name="remove_player">Remover %1$s</string>
+    <string name="add_player">Adicionar jogador</string>
+    <string name="target_score_label">Pontuação meta</string>
+    <string name="target_score_custom">Outro</string>
+    <string name="target_score_error">Digite um número maior que 0</string>
+    <string name="start_match">Começar partida</string>
+    <string name="open_history">Ver histórico</string>
+    <string name="in_progress_title">Partida em andamento</string>
+    <string name="continue_match">Continuar</string>
+    <string name="in_progress_warning">Se você começar uma nova, esta será abandonada.</string>
+    <string name="names_separator">" vs "</string>
+
+    <!-- Histórico -->
+    <string name="history_title">Histórico</string>
+    <string name="history_empty">Ainda não há partidas. As que você jogar aparecerão aqui.</string>
+    <string name="status_in_progress">Em andamento</string>
+    <string name="status_abandoned">Abandonada</string>
+    <string name="history_footer">Meta: %1$d · Mãos: %2$d</string>
+    <string name="winner_cd">Vencedor</string>
+    <string name="delete_match_cd">Excluir partida %1$s</string>
+    <string name="delete_match_title">Excluir partida?</string>
+    <string name="delete_match_text">Todas as mãos serão apagadas. Isso não pode ser desfeito.</string>
+    <string name="delete">Excluir</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- Placar -->
+    <string name="scoreboard_title">Placar</string>
+    <string name="back">Voltar</string>
+    <string name="target_info">Meta: %1$d</string>
+    <plurals name="points_left">
+        <item quantity="one">Falta %1$d</item>
+        <item quantity="many">Faltam %1$d</item>
+        <item quantity="other">Faltam %1$d</item>
+    </plurals>
+    <string name="target_reached">Meta alcançada!</string>
+    <string name="add_points">Marcar</string>
+    <string name="add_points_for">Marcar pontos para %1$s</string>
+    <string name="hands_title">Mãos</string>
+    <string name="hand_number">Mão %1$d</string>
+    <string name="edit_hand">Editar mão %1$d</string>
+    <string name="no_hands">Ainda não há mãos. Toque em “Marcar” em quem ganhou a mão.</string>
+    <string name="winner_title">Vitória de %1$s!</string>
+    <plurals name="winner_subtitle">
+        <item quantity="one">com %1$d ponto</item>
+        <item quantity="many">com %1$d pontos</item>
+        <item quantity="other">com %1$d pontos</item>
+    </plurals>
+    <string name="tie_message">Empate na meta: joga-se outra mão</string>
+    <string name="abandoned_notice">Esta partida foi abandonada porque outra foi iniciada. Só pode ser consultada.</string>
+
+    <!-- Folha para marcar / editar uma mão -->
+    <string name="editor_new_title">Marcar mão</string>
+    <string name="editor_edit_title">Editar mão %1$d</string>
+    <string name="editor_who">Quem ganhou a mão?</string>
+    <string name="editor_points">Pontos</string>
+    <string name="save">Salvar</string>
+    <string name="delete_hand">Excluir mão</string>
+</resources>

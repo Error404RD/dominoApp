@@ -70,7 +70,7 @@ class AppNavigationTest {
         rule.onNodeWithText(str(R.string.target_info, 100)).assertExists()
 
         addHand("Nosotros", "60")
-        rule.waitForText(str(R.string.points_left, 40))
+        rule.waitForText(plural(R.plurals.points_left, 40))
         addHand("Nosotros", "45")
         rule.waitForText(str(R.string.winner_title, "Nosotros"))
 
@@ -101,13 +101,13 @@ class AppNavigationTest {
     fun leavingAMatch_thenContinue_returnsToTheSameScoreboard() {
         startMatch()
         addHand("Nosotros", "25")
-        rule.waitForText(str(R.string.points_left, 75))
+        rule.waitForText(plural(R.plurals.points_left, 75))
         rule.onNodeWithContentDescription(str(R.string.back)).performClick()
 
         rule.waitForText(str(R.string.in_progress_title))
         rule.onNodeWithText(str(R.string.continue_match)).performScrollTo().performClick()
 
-        rule.waitForText(str(R.string.points_left, 75))
+        rule.waitForText(plural(R.plurals.points_left, 75))
         rule.onNodeWithText("+25").assertExists()
     }
 
@@ -151,11 +151,11 @@ class AppNavigationTest {
     fun rotatingOnTheScoreboard_keepsTheMatch() {
         startMatch()
         addHand("Ellos", "35")
-        rule.waitForText(str(R.string.points_left, 65))
+        rule.waitForText(plural(R.plurals.points_left, 65))
 
         rule.activityRule.scenario.recreate()
 
-        rule.waitForText(str(R.string.points_left, 65))
+        rule.waitForText(plural(R.plurals.points_left, 65))
         rule.onNodeWithText(scoreboardTitle).assertExists()
         rule.onNodeWithText("+35").assertExists()
     }

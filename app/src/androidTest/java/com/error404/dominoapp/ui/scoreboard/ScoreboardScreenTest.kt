@@ -21,6 +21,7 @@ import com.error404.dominoapp.data.local.DominoDatabase
 import com.error404.dominoapp.data.local.entity.Mode
 import com.error404.dominoapp.data.repository.MatchRepository
 import com.error404.dominoapp.ui.field
+import com.error404.dominoapp.ui.plural
 import com.error404.dominoapp.ui.str
 import com.error404.dominoapp.ui.theme.DominoAppTheme
 import com.error404.dominoapp.ui.waitForDescription
@@ -87,7 +88,7 @@ class ScoreboardScreenTest {
     /** Nosotros 60 + 45 = 105 ≥ 100: wins with two hands. */
     private fun playUntilNosotrosWins() {
         addHand("Nosotros", "60")
-        rule.waitForText(str(R.string.points_left, 40))
+        rule.waitForText(plural(R.plurals.points_left, 40))
         addHand("Nosotros", "45")
         rule.waitForText(winnerTitle)
     }
@@ -97,7 +98,7 @@ class ScoreboardScreenTest {
     @Test
     fun newMatch_showsBothTeamsAtZero_andTheEmptyHint() {
         rule.onNodeWithText(str(R.string.target_info, 100)).assertExists()
-        assertEquals(2, rule.onAllNodesWithText(str(R.string.points_left, 100)).fetchSemanticsNodes().size)
+        assertEquals(2, rule.onAllNodesWithText(plural(R.plurals.points_left, 100)).fetchSemanticsNodes().size)
         rule.onNodeWithText(str(R.string.no_hands)).assertExists()
     }
 
@@ -105,7 +106,7 @@ class ScoreboardScreenTest {
     fun addingAHand_updatesTheTotalAndTheList() {
         addHand("Nosotros", "45")
 
-        rule.waitForText(str(R.string.points_left, 55))
+        rule.waitForText(plural(R.plurals.points_left, 55))
         rule.onNodeWithText("45").assertExists()
         rule.onNodeWithText("+45").assertExists()
         rule.onNodeWithText(str(R.string.hand_number, 1)).assertExists()
@@ -120,8 +121,8 @@ class ScoreboardScreenTest {
         pointsField.performTextInput("20")
         pointsField.performImeAction()
 
-        rule.waitForText(str(R.string.points_left, 80))
-        rule.onNodeWithText(str(R.string.points_left, 100)).assertExists() // Nosotros unchanged
+        rule.waitForText(plural(R.plurals.points_left, 80))
+        rule.onNodeWithText(plural(R.plurals.points_left, 100)).assertExists() // Nosotros unchanged
     }
 
     @Test
@@ -140,7 +141,7 @@ class ScoreboardScreenTest {
     fun reachingTheTarget_announcesTheWinner_andHidesTheAddButtons() {
         playUntilNosotrosWins()
 
-        rule.onNodeWithText(str(R.string.winner_subtitle, 105)).assertExists()
+        rule.onNodeWithText(plural(R.plurals.winner_subtitle, 105)).assertExists()
         addButton("Nosotros").assertDoesNotExist()
         addButton("Ellos").assertDoesNotExist()
     }
@@ -167,7 +168,7 @@ class ScoreboardScreenTest {
         pointsField.performImeAction()
 
         // 60 + 10 = 70 < 100: the win is undone and the match continues.
-        rule.waitForText(str(R.string.points_left, 30))
+        rule.waitForText(plural(R.plurals.points_left, 30))
         rule.onNodeWithText(winnerTitle).assertDoesNotExist()
         rule.waitForDescription(str(R.string.add_points_for, "Nosotros"))
     }
@@ -175,13 +176,13 @@ class ScoreboardScreenTest {
     @Test
     fun deletingAHand_removesItAndItsPoints() {
         addHand("Ellos", "30")
-        rule.waitForText(str(R.string.points_left, 70))
+        rule.waitForText(plural(R.plurals.points_left, 70))
 
         openHand(1)
         rule.onNodeWithText(str(R.string.delete_hand)).performClick()
 
         rule.waitForNoText(str(R.string.hand_number, 1))
-        assertEquals(2, rule.onAllNodesWithText(str(R.string.points_left, 100)).fetchSemanticsNodes().size)
+        assertEquals(2, rule.onAllNodesWithText(plural(R.plurals.points_left, 100)).fetchSemanticsNodes().size)
         rule.onNodeWithText(str(R.string.no_hands)).assertExists()
     }
 

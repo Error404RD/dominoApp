@@ -1,5 +1,6 @@
 package com.error404.dominoapp.ui
 
+import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.ComposeTimeoutException
 import androidx.compose.ui.test.SemanticsNodeInteraction
@@ -16,6 +17,10 @@ import androidx.test.platform.app.InstrumentationRegistry
 /** Reads a string from the app's strings.xml, so tests never hardcode UI text. */
 fun str(@StringRes id: Int, vararg args: Any): String =
     InstrumentationRegistry.getInstrumentation().targetContext.getString(id, *args)
+
+/** Reads a plural string (e.g. "Faltan 40"), picking the form that matches [count]. */
+fun plural(@PluralsRes id: Int, count: Int): String =
+    InstrumentationRegistry.getInstrumentation().targetContext.resources.getQuantityString(id, count, count)
 
 /** An editable field found by its label (e.g. "Equipo 1", "Puntos"). */
 fun SemanticsNodeInteractionsProvider.field(label: String): SemanticsNodeInteraction =

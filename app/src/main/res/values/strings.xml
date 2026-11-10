@@ -1,64 +1,75 @@
+<!--
+    Default language: English. Android uses this file for any device language
+    without its own values-xx folder (values-es, values-pt, values-fr).
+    Every string added here must also be added to each translation.
+-->
 <resources>
-    <string name="app_name">Capicúa</string>
+    <string name="app_name" translatable="false">Capicúa</string>
 
-    <!-- Nueva partida -->
-    <string name="new_match_title">Nueva partida</string>
-    <string name="mode_label">Modo de juego</string>
-    <string name="mode_pairs">Parejas</string>
+    <!-- New match -->
+    <string name="new_match_title">New match</string>
+    <string name="mode_label">Game mode</string>
+    <string name="mode_pairs">Pairs</string>
     <string name="mode_individual">Individual</string>
-    <string name="mode_pairs_caption">2 equipos</string>
-    <string name="mode_individual_caption">2 a 4 jugadores</string>
-    <string name="teams_label">Equipos</string>
-    <string name="players_label">Jugadores</string>
-    <string name="team_name_hint">Equipo %1$d</string>
-    <string name="player_name_hint">Jugador %1$d</string>
-    <string name="remove_player">Quitar a %1$s</string>
-    <string name="add_player">Agregar jugador</string>
-    <string name="target_score_label">Puntaje meta</string>
-    <string name="target_score_custom">Otro</string>
-    <string name="target_score_error">Escribe un número mayor que 0</string>
-    <string name="start_match">Empezar partida</string>
-    <string name="open_history">Ver historial</string>
-    <string name="in_progress_title">Partida en curso</string>
-    <string name="continue_match">Continuar</string>
-    <string name="in_progress_warning">Si empiezas una nueva, esta quedará abandonada.</string>
+    <string name="mode_pairs_caption">2 teams</string>
+    <string name="mode_individual_caption">2 to 4 players</string>
+    <string name="teams_label">Teams</string>
+    <string name="players_label">Players</string>
+    <string name="team_name_hint">Team %1$d</string>
+    <string name="player_name_hint">Player %1$d</string>
+    <string name="remove_player">Remove %1$s</string>
+    <string name="add_player">Add player</string>
+    <string name="target_score_label">Target score</string>
+    <string name="target_score_custom">Other</string>
+    <string name="target_score_error">Enter a number greater than 0</string>
+    <string name="start_match">Start match</string>
+    <string name="open_history">View history</string>
+    <string name="in_progress_title">Match in progress</string>
+    <string name="continue_match">Continue</string>
+    <string name="in_progress_warning">If you start a new one, this one will be abandoned.</string>
     <string name="names_separator">" vs "</string>
 
-    <!-- Historial -->
-    <string name="history_title">Historial</string>
-    <string name="history_empty">Todavía no hay partidas. Las que juegues aparecerán aquí.</string>
-    <string name="status_in_progress">En curso</string>
-    <string name="status_abandoned">Abandonada</string>
-    <string name="history_footer">Meta: %1$d · Manos: %2$d</string>
-    <string name="winner_cd">Ganador</string>
-    <string name="delete_match_cd">Eliminar partida %1$s</string>
-    <string name="delete_match_title">¿Eliminar partida?</string>
-    <string name="delete_match_text">Se borrarán todas sus manos. Esto no se puede deshacer.</string>
-    <string name="delete">Eliminar</string>
-    <string name="cancel">Cancelar</string>
+    <!-- History -->
+    <string name="history_title">History</string>
+    <string name="history_empty">No matches yet. The ones you play will show up here.</string>
+    <string name="status_in_progress">In progress</string>
+    <string name="status_abandoned">Abandoned</string>
+    <string name="history_footer">Target: %1$d · Hands: %2$d</string>
+    <string name="winner_cd">Winner</string>
+    <string name="delete_match_cd">Delete match %1$s</string>
+    <string name="delete_match_title">Delete match?</string>
+    <string name="delete_match_text">All its hands will be deleted. This can\'t be undone.</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 
-    <!-- Marcador -->
-    <string name="scoreboard_title">Marcador</string>
-    <string name="back">Volver</string>
-    <string name="target_info">Meta: %1$d</string>
-    <string name="points_left">Faltan %1$d</string>
-    <string name="target_reached">¡Meta alcanzada!</string>
-    <string name="add_points">Anotar</string>
-    <string name="add_points_for">Anotar puntos para %1$s</string>
-    <string name="hands_title">Manos</string>
-    <string name="hand_number">Mano %1$d</string>
-    <string name="edit_hand">Editar mano %1$d</string>
-    <string name="no_hands">Aún no hay manos. Toca «Anotar» en quien ganó la mano.</string>
-    <string name="winner_title">¡Victoria para %1$s!</string>
-    <string name="winner_subtitle">con %1$d puntos</string>
-    <string name="tie_message">Empate en la meta: se juega otra mano</string>
-    <string name="abandoned_notice">Esta partida quedó abandonada porque se empezó otra. Solo se puede consultar.</string>
+    <!-- Scoreboard -->
+    <string name="scoreboard_title">Scoreboard</string>
+    <string name="back">Back</string>
+    <string name="target_info">Target: %1$d</string>
+    <plurals name="points_left">
+        <item quantity="one">%1$d point left</item>
+        <item quantity="other">%1$d points left</item>
+    </plurals>
+    <string name="target_reached">Target reached!</string>
+    <string name="add_points">Score</string>
+    <string name="add_points_for">Score points for %1$s</string>
+    <string name="hands_title">Hands</string>
+    <string name="hand_number">Hand %1$d</string>
+    <string name="edit_hand">Edit hand %1$d</string>
+    <string name="no_hands">No hands yet. Tap “Score” on whoever won the hand.</string>
+    <string name="winner_title">%1$s wins!</string>
+    <plurals name="winner_subtitle">
+        <item quantity="one">with %1$d point</item>
+        <item quantity="other">with %1$d points</item>
+    </plurals>
+    <string name="tie_message">Tied at the target: play another hand</string>
+    <string name="abandoned_notice">This match was abandoned because another one was started. It\'s read-only.</string>
 
-    <!-- Hoja para anotar / editar una mano -->
-    <string name="editor_new_title">Anotar mano</string>
-    <string name="editor_edit_title">Editar mano %1$d</string>
-    <string name="editor_who">¿Quién ganó la mano?</string>
-    <string name="editor_points">Puntos</string>
-    <string name="save">Guardar</string>
-    <string name="delete_hand">Eliminar mano</string>
+    <!-- Sheet to score / edit a hand -->
+    <string name="editor_new_title">Score hand</string>
+    <string name="editor_edit_title">Edit hand %1$d</string>
+    <string name="editor_who">Who won the hand?</string>
+    <string name="editor_points">Points</string>
+    <string name="save">Save</string>
+    <string name="delete_hand">Delete hand</string>
 </resources>

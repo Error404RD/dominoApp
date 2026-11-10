@@ -57,6 +57,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -263,7 +264,7 @@ private fun ScoreCard(
                     .padding(vertical = 8.dp),
             )
             Text(
-                if (pointsLeft > 0) stringResource(R.string.points_left, pointsLeft) else stringResource(R.string.target_reached),
+                if (pointsLeft > 0) pluralStringResource(R.plurals.points_left, pointsLeft, pointsLeft) else stringResource(R.string.target_reached),
                 style = MaterialTheme.typography.labelLarge,
             )
             if (canAdd) {
@@ -311,7 +312,7 @@ private fun WinnerBanner(winner: ParticipantTotal, onNewMatch: () -> Unit) {
                 textAlign = TextAlign.Center,
             )
             Text(
-                stringResource(R.string.winner_subtitle, winner.total),
+                pluralStringResource(R.plurals.winner_subtitle, winner.total, winner.total),
                 style = MaterialTheme.typography.titleMedium,
             )
             Spacer(Modifier.size(12.dp))

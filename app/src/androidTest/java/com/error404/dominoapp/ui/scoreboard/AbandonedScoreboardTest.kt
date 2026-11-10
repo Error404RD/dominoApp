@@ -12,6 +12,7 @@ import com.error404.dominoapp.R
 import com.error404.dominoapp.data.local.DominoDatabase
 import com.error404.dominoapp.data.local.entity.Mode
 import com.error404.dominoapp.data.repository.MatchRepository
+import com.error404.dominoapp.ui.plural
 import com.error404.dominoapp.ui.str
 import com.error404.dominoapp.ui.theme.DominoAppTheme
 import com.error404.dominoapp.ui.waitForText
@@ -60,7 +61,7 @@ class AbandonedScoreboardTest {
     fun showsTheNoticeAndNoAddButtons() {
         rule.onNodeWithContentDescription(str(R.string.add_points_for, "Nosotros")).assertDoesNotExist()
         rule.onNodeWithContentDescription(str(R.string.add_points_for, "Ellos")).assertDoesNotExist()
-        rule.onNodeWithText(str(R.string.points_left, 80)).assertExists()
+        rule.onNodeWithText(plural(R.plurals.points_left, 80)).assertExists()
     }
 
     @Test

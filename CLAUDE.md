@@ -83,4 +83,13 @@ The default `java` on this machine is JDK 22, which Gradle 8.6 cannot run on ("U
 - Always use the Material 3 theme's colors and typography, never hardcoded values.
 - Touch targets of at least 48dp, and large scoreboard text.
 - Build with ./gradlew assembleDebug after every change.
-- All code in English: classes, functions, variables, Room tables/columns and comments. Only user-facing text (in `strings.xml`) is in Spanish.
+- All code in English: classes, functions, variables, Room tables/columns and comments. Only user-facing text lives in `strings.xml`, translated per language.
+
+## Translations
+
+- The app follows the device language: `values/` is **English** (fallback for any untranslated language), plus `values-es/`, `values-pt/` and `values-fr/`. Every new string must be added to all four files; `./gradlew lint` reports missing ones (`MissingTranslation`).
+- Text with a count uses `<plurals>` + `pluralStringResource` (tests: `plural(R.plurals.x, n)`), never `"%d points"` in a plain string.
+- `app_name` ("Capicúa") is `translatable="false"` and only lives in `values/`.
+- French uses ` ` (non-breaking space) before `: ? !` and inside `« »`.
+- `res/xml/locales_config.xml` (referenced from the manifest) lets users pick the app language in system Settings; add new languages there too.
+- Instrumented tests pass in any emulator language because they read text through `str()` / `plural()`.

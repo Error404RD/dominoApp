@@ -45,8 +45,9 @@ Set a target score, log the points of every hand, and let the app call the winne
 | 📴 **100 % offline** | Everything lives in a local database on the device. No accounts, no internet, no tracking. |
 | 🌗 **Light & dark themes** | A custom "Caribbean" palette that follows the system theme. |
 | 🔄 **Survives rotation** | State is kept across configuration changes and process restarts. |
+| 🌍 **Speaks your language** | Follows the phone's language: **English, Spanish, Portuguese and French** (English for any other). It can also be changed per app in system Settings. |
 
-> The interface is in Spanish; the code and documentation are in English.
+> The code and documentation are in English.
 
 ---
 
